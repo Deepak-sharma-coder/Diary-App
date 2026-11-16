@@ -1,0 +1,928 @@
+/* =========================================================
+   Veritas Diary - single stylesheet
+   Sections: variables, AddDiary, Diary, Profile + BottomNav
+   ========================================================= */
+
+:root {
+  --bg: #e4ded3;
+  --paper: #fdfcf9;
+  --brown: #755634;
+  --input: #f3eee8;
+  --border: #e6dfd5;
+  --text: #1f1b16;
+  --muted: #7a736a;
+  --chip: #efe7d6;
+  --danger: #a3392d;
+  --danger-dark: #8a3126;
+  --danger-border: #d9b3ad;
+  --olive: #4f5d3a;
+
+  --font-sans: "Segoe UI", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+/* =========================================================
+   AddDiary (create / edit entry)
+   ========================================================= */
+.ad-page {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+.ad-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 18px 24px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+}
+
+.ad-close-btn {
+  justify-self: start;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  padding: 4px;
+  display: flex;
+}
+
+.ad-top-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+}
+
+.ad-save-btn {
+  justify-self: end;
+  background: none;
+  border: none;
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.ad-save-btn:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.ad-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+.ad-title-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-serif);
+  font-size: 34px;
+  color: var(--text);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ad-textarea {
+  width: 100%;
+  min-height: 260px;
+  margin-top: 24px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  background: transparent;
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ad-label {
+  display: block;
+  margin: 28px 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--brown);
+  text-transform: uppercase;
+}
+
+.ad-mood-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ad-mood-btn {
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--input);
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.ad-mood-btn.active {
+  border-color: var(--brown);
+  background: var(--chip);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.ad-text-input {
+  width: 100%;
+  height: 64px;
+  padding: 0 20px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  font-size: 18px;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ad-hint {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.ad-photo-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ad-add-photo {
+  width: 97px;
+  height: 97px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ad-thumb {
+  position: relative;
+  width: 97px;
+  height: 97px;
+}
+
+.ad-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.ad-thumb-remove {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: var(--brown);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ad-privacy-list {
+  display: grid;
+  gap: 12px;
+}
+
+.ad-privacy-btn {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 16px;
+  text-align: left;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--text);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.ad-privacy-btn.active {
+  border-color: var(--brown);
+  background: var(--chip);
+}
+
+.ad-privacy-icon {
+  color: var(--muted);
+  display: flex;
+  width: 28px;
+  justify-content: center;
+}
+
+.ad-privacy-text {
+  flex: 1;
+}
+
+.ad-privacy-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.ad-privacy-desc {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.ad-check {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brown);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ad-pin-label {
+  display: block;
+  margin: 28px 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+
+.ad-pin-input {
+  width: 100%;
+  height: 72px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 0.6em;
+  padding-left: 0.6em; /* balances trailing letter-spacing so dots stay centred */
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ad-error {
+  margin-top: 20px;
+  color: var(--danger);
+  font-size: 15px;
+}
+
+/* =========================================================
+   Diary (home list, entry viewer, PIN unlock)
+   ========================================================= */
+.dy-page {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 24px 24px 120px;
+  background: var(--paper);
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  color: var(--text);
+}
+
+.dy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dy-date {
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--brown);
+  font-size: 14px;
+}
+
+.dy-heading {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 400;
+  margin: 6px 0 0;
+}
+
+.dy-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dy-room {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: var(--input);
+}
+
+.dy-room-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: var(--chip);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dy-room-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.dy-room-sub {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.dy-entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 36px;
+}
+
+.dy-entries-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.dy-icon-btn {
+  background: none;
+  border: none;
+  color: var(--brown);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+}
+
+.dy-filters {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0 24px;
+  flex-wrap: wrap;
+}
+
+.dy-filter-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.dy-filter-btn.active {
+  border-color: var(--brown);
+  background: var(--brown);
+  color: #fff;
+  font-weight: 700;
+}
+
+.dy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.dy-card {
+  position: relative;
+  padding: 22px 24px;
+  border-radius: 20px;
+  background: var(--input);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.dy-card-date {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.dy-card-icon {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  color: var(--brown);
+  display: flex;
+}
+
+.dy-card-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  margin: 14px 0 10px;
+}
+
+.dy-card-body {
+  margin: 0;
+  font-size: 17px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dy-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.dy-mood {
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: var(--chip);
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.dy-tag {
+  color: var(--brown);
+  font-size: 14px;
+}
+
+.dy-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+.dy-write-btn {
+  width: 100%;
+  height: 64px;
+  margin-top: 24px;
+  border-radius: 14px;
+  border: none;
+  background: var(--brown);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ----- entry viewer / PIN unlock ----- */
+.dy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(31, 27, 22, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.dy-modal {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 28px 28px 32px;
+  box-sizing: border-box;
+}
+
+.dy-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+}
+
+.dy-entry-date {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.dy-modal-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  margin: 10px 36px 14px 0;
+}
+
+.dy-modal-body {
+  font-size: 18px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.dy-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dy-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.dy-pin-label {
+  display: block;
+  margin: 22px 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+
+.dy-pin-input {
+  width: 100%;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 0.6em;
+  padding-left: 0.6em;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.dy-primary-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px 0;
+  border-radius: 14px;
+  border: none;
+  background: var(--brown);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dy-error {
+  margin-top: 12px;
+  color: var(--danger);
+  font-size: 15px;
+}
+
+/* ----- edit / delete actions ----- */
+.dy-action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+
+.dy-edit-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 0;
+  border-radius: 14px;
+  border: none;
+  background: var(--brown);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dy-delete-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 0;
+  border-radius: 14px;
+  border: 1px solid var(--danger-border);
+  background: transparent;
+  color: var(--danger);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dy-confirm-box {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+
+.dy-confirm-text {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dy-confirm-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.dy-cancel-btn {
+  flex: 1;
+  padding: 13px 0;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dy-confirm-delete-btn {
+  flex: 1;
+  padding: 13px 0;
+  border-radius: 14px;
+  border: none;
+  background: var(--danger);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   Bottom navigation (shared by Diary + Profile)
+   ========================================================= */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 88px;
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bottom-nav-item {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.bottom-nav-item.active {
+  color: var(--brown);
+  font-weight: 700;
+}
+
+.bottom-nav-fab {
+  width: 64px;
+  height: 64px;
+  margin-top: -40px;
+  border-radius: 20px;
+  border: none;
+  background: var(--brown);
+  color: #fff;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(117, 86, 52, 0.35);
+}
+
+/* =========================================================
+   Profile
+   ========================================================= */
+.pf-page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px 24px 120px;
+  background: var(--paper);
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  color: var(--text);
+}
+
+.pf-user-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px;
+  border-radius: 22px;
+  background: var(--input);
+}
+
+.pf-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--brown);
+  color: #fff;
+  font-weight: 700;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pf-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.pf-email {
+  margin: 6px 0 0;
+  font-size: 16px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.pf-section-label {
+  margin: 38px 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--brown);
+  text-transform: uppercase;
+}
+
+.pf-promise {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 22px;
+  border-radius: 18px;
+  background: var(--chip);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.pf-promise-icon {
+  color: var(--olive);
+  display: flex;
+  flex-shrink: 0;
+}
+
+.pf-list {
+  padding: 0 20px;
+  border-radius: 22px;
+  background: var(--input);
+}
+
+.pf-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border);
+  text-align: left;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.pf-row:first-child {
+  border-top: none;
+}
+
+.pf-row-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--chip);
+  color: var(--brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pf-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.pf-row-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.pf-row-sub {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.pf-chevron {
+  color: var(--muted);
+  display: flex;
+}
+
+.pf-sign-out {
+  width: 100%;
+  height: 64px;
+  margin-top: 32px;
+  border-radius: 14px;
+  border: 1px solid var(--danger-dark);
+  background: transparent;
+  color: var(--danger-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pf-footer {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
